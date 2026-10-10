@@ -1,70 +1,76 @@
 import Link from "next/link";
-import logo from "@/assets/bazar-hero.png"
 import Image from "next/image";
-import { buttonVariants } from "@heroui/react";
+import { Suspense } from "react";
 import { cacheLife } from "next/cache";
+
+import logo from "@/assets/bazar-hero.png";
 import CategoryNav from "../CategoryNav/CategoryNav";
 import PriceTicker from "../PriceTicker/PriceTicker";
-import { Suspense } from "react";
+import NavbarAuth from "./navbarAuth";
 
-const Navbar = () => {
 async function banglaDate() {
   "use cache";
   cacheLife("hours");
 
   return new Date().toLocaleDateString("bn-BD", {
     dateStyle: "full",
+    timeZone: "Asia/Dhaka",
   });
 }
-    return (
-    <header className="w-full bg-white">
-      <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 lg:px-0 py-4">
-        <Link href="/" className="flex items-center">
-        <Image src={logo} width={50} height={50} alt="Bazar dor logo" />
-        <div className="text-xl font-bold">
-            <h1>বাজার দর</h1>
-            <p className="text-sm text-gray-500">{banglaDate()}</p>
-        </div>
-        </Link>
-       <div className="flex items-center gap-3">
-  <Link
-    href="/signin"
-    className={buttonVariants({
-      variant: "ghost",
-      className: "rounded-lg px-4 text-sm font-semibold text-gray-800",
-    })}
-  >
-    সাইন ইন
-  </Link>
 
-  <Link
-    href="/signup"
-    className={buttonVariants({
-      variant: "primary",
-      className:
-        "rounded-lg bg-green-700 px-5 text-sm font-semibold text-white shadow-md hover:bg-green-800",
-    })}
-  >
-    সাইন আপ
-  </Link>
-</div>
+async function NavbarDate() {
+  const date = await banglaDate();
+
+  return <p className="text-xs text-gray-500 sm:text-sm">{date}</p>;
+}
+
+export default function Navbar() {
+  return (
+    <header className="w-full bg-white">
+      <nav className="mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6">
+        <Link href="/" className="flex items-center">
+          <Image
+            src={logo}
+            width={50}
+            height={50}
+            alt="Bazar dor logo"
+          />
+
+          <div className="font-bold">
+            <h1 className="text-xl">বাজার দর</h1>
+
+            <Suspense
+              fallback={
+                <p className="text-xs text-gray-500 sm:text-sm">
+                  তারিখ লোড হচ্ছে...
+                </p>
+              }
+            >
+              <NavbarDate />
+            </Suspense>
+          </div>
+        </Link>
+
+        <NavbarAuth />
       </nav>
-                <hr className="w-full border-gray-100"/>
-<Suspense
-  fallback={
-    <div className="border-b border-gray-200 bg-white">
-      <div className="mx-auto max-w-7xl px-6 py-3 text-sm text-gray-500">
-        বিভাগ লোড হচ্ছে...
-      </div>
-    </div>
-  }
->
-  <CategoryNav />
-</Suspense>
-        <PriceTicker/>
-                <hr className="w-full border-gray-200"/>
+
+      <hr className="w-full border-gray-100" />
+
+      <Suspense
+        fallback={
+          <div className="border-b border-gray-200 bg-white">
+            <div className="mx-auto max-w-7xl px-6 py-3 text-sm text-gray-500">
+              বিভাগ লোড হচ্ছে...
+            </div>
+          </div>
+        }
+      >
+        <CategoryNav />
+      </Suspense>
+
+      <PriceTicker />
+
+      <hr className="w-full border-gray-200" />
     </header>
   );
-};
-
-export default Navbar;
+}

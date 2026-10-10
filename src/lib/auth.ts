@@ -14,6 +14,10 @@ const globalForMongo = globalThis as typeof globalThis & {
 
 const client = globalForMongo.mongoClient ?? new MongoClient(uri);
 
+export async function connectDatabase() {
+  await client.connect();
+}
+
 if (process.env.NODE_ENV !== "production") {
   globalForMongo.mongoClient = client;
 }
