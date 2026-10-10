@@ -1,3 +1,5 @@
+import AllProducts from "@/components/AllProducts/AllProducts";
+import Footer from "@/components/Footers/Footers";
 import Hero from "@/components/Hero/Hero";
 import PriceFallers from "@/components/PriceFallers/PriceFallers";
 import PriceRisers from "@/components/PriceRisers/PriceRisers";
@@ -5,9 +7,10 @@ import PriceRisers from "@/components/PriceRisers/PriceRisers";
 export default function Home() {
   return (
    <div>
-    <Hero/>
-    <PriceRisers/>
-    <PriceFallers/>
+      <Hero/>
+      <PriceRisers/>
+      <PriceFallers/>
+      <AllProducts/>
    </div>
   );
 }

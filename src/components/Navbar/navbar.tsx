@@ -16,7 +16,7 @@ async function banglaDate() {
   });
 }
     return (
-    <header className="w-full">
+    <header className="w-full bg-white">
       <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 lg:px-0 py-4">
         <Link href="/" className="flex items-center">
         <Image src={logo} width={50} height={50} alt="Bazar dor logo" />
