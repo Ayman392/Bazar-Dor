@@ -48,7 +48,7 @@ export default async function Hero() {
         <Image
           src={heroImage}
           alt="ফল ও নিত্যপ্রয়োজনীয় পণ্যের ঝুড়ি"
-          className="h-auto w-48 shrink-0 self-center object-contain sm:w-56 md:w-64"
+          className="h-auto w-64 shrink-0 self-center object-contain md:w-72"
           sizes="(max-width: 640px) 192px, (max-width: 768px) 224px, 256px"
         />
       </div>

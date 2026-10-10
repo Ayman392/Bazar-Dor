@@ -5,6 +5,7 @@ import { buttonVariants } from "@heroui/react";
 import { cacheLife } from "next/cache";
 import CategoryNav from "../CategoryNav/CategoryNav";
 import PriceTicker from "../PriceTicker/PriceTicker";
+import { Suspense } from "react";
 
 const Navbar = () => {
 async function banglaDate() {
@@ -49,7 +50,17 @@ async function banglaDate() {
 </div>
       </nav>
                 <hr className="w-full border-gray-100"/>
-        <CategoryNav/>
+<Suspense
+  fallback={
+    <div className="border-b border-gray-200 bg-white">
+      <div className="mx-auto max-w-7xl px-6 py-3 text-sm text-gray-500">
+        বিভাগ লোড হচ্ছে...
+      </div>
+    </div>
+  }
+>
+  <CategoryNav />
+</Suspense>
         <PriceTicker/>
                 <hr className="w-full border-gray-200"/>
     </header>

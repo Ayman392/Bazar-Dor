@@ -1,5 +1,4 @@
 import AllProducts from "@/components/AllProducts/AllProducts";
-import Footer from "@/components/Footers/Footers";
 import Hero from "@/components/Hero/Hero";
 import PriceFallers from "@/components/PriceFallers/PriceFallers";
 import PriceRisers from "@/components/PriceRisers/PriceRisers";
