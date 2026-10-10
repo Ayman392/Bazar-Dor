@@ -4,43 +4,37 @@ import { useEffect, useState } from "react";
 import ProductCard, {
   type Product,
 } from "@/components/ProductCard/ProductCard";
+import { getProducts } from "@/lib/getProducts";
 
 export default function AllProducts() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  useEffect(() => {
-    const controller = new AbortController();
+        useEffect(() => {
+        let active = true;
 
-    async function loadProducts() {
-      try {
-        const response = await fetch(
-          "https://api.api-store.workers.dev/api/bazardor/products",
-          { signal: controller.signal }
-        );
+        async function loadProducts() {
+            try {
+            const data = await getProducts();
 
-        if (!response.ok) {
-          throw new Error("Failed to load products");
+            if (active) {
+                setProducts(data);
+                setError(false);
+            }
+            } catch {
+            if (active) setError(true);
+            } finally {
+            if (active) setLoading(false);
+            }
         }
 
-        const data: Product[] = await response.json();
-        setProducts(data);
-      } catch {
-        if (!controller.signal.aborted) {
-          setError(true);
-        }
-      } finally {
-        if (!controller.signal.aborted) {
-          setLoading(false);
-        }
-      }
-    }
+        loadProducts();
 
-    loadProducts();
-
-    return () => controller.abort();
-  }, []);
+        return () => {
+            active = false;
+        };
+        }, []);
 
   return (
     <section

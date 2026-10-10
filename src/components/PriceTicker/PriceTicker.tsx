@@ -1,5 +1,6 @@
 "use client";
 
+import { getProducts } from "@/lib/getProducts";
 import { useEffect, useState } from "react";
 
 type Product = {
@@ -28,31 +29,30 @@ export default function PriceTicker() {
   const [error, setError] = useState(false);
   const [paused, setPaused] = useState(false);
 
-  useEffect(() => {
-    const controller = new AbortController();
+useEffect(() => {
+  let active = true;
 
-    async function loadProducts() {
-      try {
-        const response = await fetch(
-          "https://api.api-store.workers.dev/api/bazardor/products",
-          { signal: controller.signal }
-        );
+  async function loadProducts() {
+    try {
+      const data = await getProducts();
 
-        if (!response.ok) throw new Error("Failed to load products");
-
-        const data: Product[] = await response.json();
+      if (active) {
         setProducts(data);
-      } catch {
-        if (!controller.signal.aborted) setError(true);
-      } finally {
-        if (!controller.signal.aborted) setLoading(false);
+        setError(false);
       }
+    } catch {
+      if (active) setError(true);
+    } finally {
+      if (active) setLoading(false);
     }
+  }
 
-    loadProducts();
+  loadProducts();
 
-    return () => controller.abort();
-  }, []);
+  return () => {
+    active = false;
+  };
+}, []);
 
   return (
     <section

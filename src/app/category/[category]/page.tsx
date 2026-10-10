@@ -18,7 +18,7 @@ type CategoryProduct = Product & {
   category: string;
 };
 
-const API = "https://api.api-store.workers.dev/api/bazardor";
+const API = "https://api.abcz.workers.dev/api/bazardor";
 
 function CategoryLoading() {
   return (
