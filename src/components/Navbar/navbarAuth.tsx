@@ -101,48 +101,45 @@ export default function NavbarAuth() {
 
   return (
     <Dropdown>
-      <Dropdown.Trigger>
-        <Button
-          type="button"
-          variant="ghost"
-          isDisabled={signingOut}
-          aria-label={`${user.name} — অ্যাকাউন্ট মেনু`}
-          className="h-auto gap-2 rounded-lg px-2 py-1.5 text-gray-800"
-        >
-          <Avatar size="sm" className="rounded-lg">
-            {user.image && (
-              <Avatar.Image
-                src={user.image}
-                alt=""
-                className="rounded-lg object-cover"
-              />
-            )}
+<Dropdown.Trigger
+  type="button"
+  isDisabled={signingOut}
+  aria-label={`${user.name} — অ্যাকাউন্ট মেনু`}
+  className="inline-flex items-center gap-2 rounded-lg px-2 py-1.5 text-gray-800 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-green-700 disabled:opacity-50"
+>
+  <Avatar size="sm" className="rounded-lg">
+    {user.image && (
+      <Avatar.Image
+        src={user.image}
+        alt=""
+        className="rounded-lg object-cover"
+      />
+    )}
 
-            <Avatar.Fallback className="rounded-lg bg-green-50 text-sm font-semibold text-green-800">
-              {initial}
-            </Avatar.Fallback>
-          </Avatar>
+    <Avatar.Fallback className="rounded-lg bg-green-50 text-sm font-semibold text-green-800">
+      {initial}
+    </Avatar.Fallback>
+  </Avatar>
 
-          <span className="max-w-28 truncate text-sm font-medium">
-            {signingOut ? "সাইন আউট হচ্ছে..." : firstName}
-          </span>
+  <span className="max-w-28 truncate text-sm font-medium">
+    {signingOut ? "সাইন আউট হচ্ছে..." : firstName}
+  </span>
 
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 16 16"
-            fill="none"
-            className="size-3 text-gray-500"
-          >
-            <path
-              d="m5 6.5 3 3 3-3"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </Button>
-      </Dropdown.Trigger>
+  <svg
+    aria-hidden="true"
+    viewBox="0 0 16 16"
+    fill="none"
+    className="size-3 text-gray-500"
+  >
+    <path
+      d="m5 6.5 3 3 3-3"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+</Dropdown.Trigger>
 
       <Dropdown.Popover
         placement="bottom end"
