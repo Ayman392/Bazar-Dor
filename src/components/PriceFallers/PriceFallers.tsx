@@ -51,7 +51,7 @@ useEffect(() => {
         className="mb-4 flex items-center gap-2 text-lg font-bold text-gray-900"
       >
         <span aria-hidden="true" className="text-green-700">
-          ▲
+          ▼
         </span>
         আজ দাম কমেছে
       </h2>
