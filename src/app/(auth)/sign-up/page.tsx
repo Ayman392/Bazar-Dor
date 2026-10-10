@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 import { Eye, EyeSlash } from "@gravity-ui/icons";
 import GoogleSignInButton from "@/components/GoggleSignInButton/GoogleSignInButton";
+import GitHubSignInButton from "@/components/GithubSignInButton/GithubSignInButton";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -249,7 +250,10 @@ export default function SignUpPage() {
   <div className="h-px flex-1 bg-gray-200" />
 </div>
 
+<div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
 <GoogleSignInButton />
+<GitHubSignInButton/>
+</div>
 
 <p className="mt-4 text-center text-xs text-gray-700">
             অ্যাকাউন্ট আছে?{" "}

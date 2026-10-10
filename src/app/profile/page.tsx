@@ -186,6 +186,26 @@ export default function ProfilePage() {
             <ArrowRightFromSquare aria-hidden="true" className="size-4" />
             {signingOut ? "সাইন আউট হচ্ছে..." : "সাইন আউট"}
           </Button>
+          <Button
+  type="button"
+  variant="secondary"
+  onPress={async () => {
+    try {
+      const { error } = await authClient.linkSocial({
+        provider: "github",
+        callbackURL: "/profile",
+      });
+
+      if (error) {
+        toast.error(error.message || "GitHub সংযুক্ত করা যায়নি।");
+      }
+    } catch {
+      toast.error("সার্ভারের সঙ্গে যোগাযোগ করা যায়নি।");
+    }
+  }}
+>
+  GitHub সংযুক্ত করুন
+</Button>
         </div>
 
         <div className="mt-5 rounded-2xl border border-[#dfe7e1] bg-[#f9fcfa] p-5 sm:p-8">

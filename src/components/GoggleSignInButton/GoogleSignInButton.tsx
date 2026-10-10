@@ -37,7 +37,7 @@ export default function GoogleSignInButton() {
       isPending={pending}
       isDisabled={pending}
       onPress={handleGoogleSignIn}
-      className="h-10 gap-2 rounded-lg border border-[#dfe7e1] bg-white text-sm font-semibold text-gray-800"
+      className="h-10 gap-1 rounded-lg border border-[#dfe7e1] bg-white text-sm font-semibold text-gray-800"
     >
       <svg
         aria-hidden="true"
