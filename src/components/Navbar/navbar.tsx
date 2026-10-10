@@ -3,6 +3,7 @@ import logo from "@/assets/bazar-hero.png"
 import Image from "next/image";
 import { buttonVariants } from "@heroui/react";
 import { cacheLife } from "next/cache";
+import CategoryNav from "../CategoryNav/CategoryNav";
 
 const Navbar = () => {
 async function banglaDate() {
@@ -45,8 +46,9 @@ async function banglaDate() {
     সাইন আপ
   </Link>
 </div>
-        
       </nav>
+                <hr className="w-full border-gray-100"/>
+        <CategoryNav/>
                 <hr className="w-full border-gray-200"/>
     </header>
   );
