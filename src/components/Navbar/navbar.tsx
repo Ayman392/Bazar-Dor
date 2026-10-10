@@ -4,6 +4,7 @@ import Image from "next/image";
 import { buttonVariants } from "@heroui/react";
 import { cacheLife } from "next/cache";
 import CategoryNav from "../CategoryNav/CategoryNav";
+import PriceTicker from "../PriceTicker/PriceTicker";
 
 const Navbar = () => {
 async function banglaDate() {
@@ -49,6 +50,7 @@ async function banglaDate() {
       </nav>
                 <hr className="w-full border-gray-100"/>
         <CategoryNav/>
+        <PriceTicker/>
                 <hr className="w-full border-gray-200"/>
     </header>
   );

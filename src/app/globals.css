@@ -2,3 +2,42 @@
 @import "@heroui/styles";
 
 @plugin "daisyui";
+
+.price-ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 90s linear infinite;
+}
+
+.price-ticker-group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 2rem;
+  margin: 0;
+  padding: 0.25rem 2rem 0.25rem 0;
+  list-style: none;
+}
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .price-ticker {
+    overflow-x: auto;
+  }
+
+  .price-ticker-track {
+    animation: none;
+  }
+
+  .price-ticker-group[aria-hidden="true"] {
+    display: none;
+  }
+}
