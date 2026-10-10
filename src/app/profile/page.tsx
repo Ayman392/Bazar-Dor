@@ -18,11 +18,23 @@ export default function ProfilePage() {
   const [signingOut, setSigningOut] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  useEffect(() => {
-    if (!isPending && !error && !session) {
-      router.replace("/sign-in");
-    }
-  }, [isPending, error, session, router]);
+useEffect(() => {
+  const url = new URL(window.location.href);
+
+  if (url.searchParams.get("linked") !== "github") return;
+
+  url.searchParams.delete("linked");
+
+  window.history.replaceState(
+    window.history.state,
+    "",
+    `${url.pathname}${url.search}${url.hash}`
+  );
+
+  toast.success("GitHub সফলভাবে সংযুক্ত হয়েছে।", {
+    id: "github-linked",
+  });
+}, []);
 
   async function handleUpdate(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -193,7 +205,7 @@ export default function ProfilePage() {
     try {
       const { error } = await authClient.linkSocial({
         provider: "github",
-        callbackURL: "/profile",
+        callbackURL: "/profile?linked=github",
       });
 
       if (error) {
