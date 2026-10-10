@@ -71,7 +71,7 @@ export default function NavbarAuth() {
     return (
       <div className="flex items-center gap-2 sm:gap-3">
         <Link
-          href="/signin"
+          href="/sign-in"
           className={buttonVariants({
             variant: "ghost",
             className:
@@ -82,7 +82,7 @@ export default function NavbarAuth() {
         </Link>
 
         <Link
-          href="/signup"
+          href="/sign-up"
           className={buttonVariants({
             variant: "primary",
             className:

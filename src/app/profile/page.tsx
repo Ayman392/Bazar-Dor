@@ -20,7 +20,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     if (!isPending && !error && !session) {
-      router.replace("/signin");
+      router.replace("/sign-in");
     }
   }, [isPending, error, session, router]);
 

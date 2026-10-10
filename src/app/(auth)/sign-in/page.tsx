@@ -7,6 +7,7 @@ import { Eye, EyeSlash } from "@gravity-ui/icons";
 import { Button, Input, InputGroup, Label } from "@heroui/react";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
+import GoogleSignInButton from "@/components/GoggleSignInButton/GoogleSignInButton";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -162,11 +163,19 @@ export default function SignInPage() {
             >
               {pending ? "সাইন ইন হচ্ছে..." : "সাইন ইন করুন"}
             </Button>
-          </form>
+         </form>
 
-          <p className="mt-4 text-center text-xs text-gray-700">
+<div className="my-5 flex items-center gap-3">
+  <div className="h-px flex-1 bg-gray-200" />
+  <span className="text-xs text-gray-500">অথবা</span>
+  <div className="h-px flex-1 bg-gray-200" />
+</div>
+
+<GoogleSignInButton />
+
+<p className="mt-4 text-center text-xs text-gray-700">
             অ্যাকাউন্ট নেই?{" "}
-            <Link href="/signup" className="text-green-700 hover:underline">
+            <Link href="/sign-up" className="text-green-700 hover:underline">
               সাইন আপ করুন
             </Link>
           </p>

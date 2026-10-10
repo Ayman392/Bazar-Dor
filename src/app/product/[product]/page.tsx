@@ -30,7 +30,7 @@ async function ProtectedProductPage() {
   });
 
   if (!session) {
-    redirect("/signin");
+    redirect("/sign-in");
   }
 
   return <ProductPageClient />;

@@ -7,6 +7,7 @@ import { Button, Input, InputGroup, Label } from "@heroui/react";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 import { Eye, EyeSlash } from "@gravity-ui/icons";
+import GoogleSignInButton from "@/components/GoggleSignInButton/GoogleSignInButton";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -62,7 +63,7 @@ export default function SignUpPage() {
       }
 
       toast.success("নিবন্ধনের অনুরোধ সফল হয়েছে। এখন সাইন ইন করুন।");
-      router.push("/signin");
+      router.push("/sign-in");
     } catch {
       showError("সার্ভারের সঙ্গে যোগাযোগ করা যায়নি। আবার চেষ্টা করুন।");
     } finally {
@@ -240,11 +241,19 @@ export default function SignUpPage() {
             >
               {pending ? "অ্যাকাউন্ট তৈরি হচ্ছে..." : "অ্যাকাউন্ট তৈরি করুন"}
             </Button>
-          </form>
+         </form>
 
-          <p className="mt-4 text-center text-xs text-gray-700">
+<div className="my-5 flex items-center gap-3">
+  <div className="h-px flex-1 bg-gray-200" />
+  <span className="text-xs text-gray-500">অথবা</span>
+  <div className="h-px flex-1 bg-gray-200" />
+</div>
+
+<GoogleSignInButton />
+
+<p className="mt-4 text-center text-xs text-gray-700">
             অ্যাকাউন্ট আছে?{" "}
-            <Link href="/signin" className="text-green-700 hover:underline">
+            <Link href="/sign-in" className="text-green-700 hover:underline">
               সাইন ইন করুন
             </Link>
           </p>
