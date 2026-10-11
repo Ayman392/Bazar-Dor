@@ -31,13 +31,13 @@ export default function Navbar() {
         <Link href="/" className="flex items-center">
           <Image
             src={logo}
-            width={50}
-            height={50}
+            width={70}
+            height={70}
             alt="Bazar dor logo"
           />
 
           <div className="font-bold">
-            <h1 className="text-xl">বাজার দর</h1>
+            <h1 className="text-2xl">বাজার দর</h1>
 
             <Suspense
               fallback={

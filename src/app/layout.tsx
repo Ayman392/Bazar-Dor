@@ -7,7 +7,8 @@ import ToastProvider from "@/components/ToastProvider/ToastProvider";
 
 const hindSiliguri = Hind_Siliguri({
   subsets: ["latin", "bengali"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
