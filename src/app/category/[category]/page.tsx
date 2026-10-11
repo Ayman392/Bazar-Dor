@@ -23,9 +23,7 @@ const API = "https://api.abcz.workers.dev/api/bazardor";
 function CategoryLoading() {
   return (
     <section className="px-6 py-10" role="status">
-      <p className="mb-5 text-sm text-gray-500">
-        পণ্য লোড হচ্ছে...
-      </p>
+      <p className="mb-5 text-sm text-gray-500">পণ্য লোড হচ্ছে...</p>
 
       <div
         aria-hidden="true"
@@ -82,13 +80,12 @@ function CategoryProducts({ category }: { category: string }) {
         }
 
         const categories: Category[] = await categoryResponse.json();
-        const allProducts: CategoryProduct[] =
-          await productResponse.json();
+        const allProducts: CategoryProduct[] = await productResponse.json();
 
         if (controller.signal.aborted) return;
 
         const selectedCategory = categories.find(
-          (item) => item.slug === category
+          (item) => item.slug === category,
         );
 
         setCategoryInfo(selectedCategory ?? null);
@@ -96,9 +93,9 @@ function CategoryProducts({ category }: { category: string }) {
         setProducts(
           selectedCategory
             ? allProducts.filter(
-                (product) => product.category === selectedCategory.id
+                (product) => product.category === selectedCategory.id,
               )
-            : []
+            : [],
         );
       } catch {
         if (!controller.signal.aborted) {

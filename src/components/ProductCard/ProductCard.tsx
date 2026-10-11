@@ -39,9 +39,7 @@ export default function ProductCard({ product }: { product: Product }) {
         </span>
 
         <div>
-          <h3 className="text-sm font-bold text-gray-900">
-            {product.nameBn}
-          </h3>
+          <h3 className="text-sm font-bold text-gray-900">{product.nameBn}</h3>
 
           <p className="mt-1 text-xs text-gray-500">
             প্রতি {units[product.unit] ?? product.unit}

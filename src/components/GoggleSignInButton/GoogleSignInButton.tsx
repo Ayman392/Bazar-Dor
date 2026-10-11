@@ -39,11 +39,7 @@ export default function GoogleSignInButton() {
       onPress={handleGoogleSignIn}
       className="h-10 gap-1 rounded-lg border border-[#dfe7e1] bg-white text-xs font-semibold text-gray-800"
     >
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 24 24"
-        className="size-4 shrink-0"
-      >
+      <svg aria-hidden="true" viewBox="0 0 24 24" className="size-4 shrink-0">
         <path
           fill="#4285F4"
           d="M21.6 12.23c0-.71-.06-1.39-.18-2.05H12v3.88h5.38a4.6 4.6 0 0 1-1.99 3.02v2.51h3.23c1.89-1.74 2.98-4.3 2.98-7.36Z"

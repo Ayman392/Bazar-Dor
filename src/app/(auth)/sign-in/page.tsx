@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { Eye, EyeSlash } from "@gravity-ui/icons";
 import { Button, Input, InputGroup, Label } from "@heroui/react";
 import toast from "react-hot-toast";
@@ -51,7 +51,7 @@ export default function SignInPage() {
         showError(
           error.code === "INVALID_EMAIL_OR_PASSWORD"
             ? "ইমেইল অথবা পাসওয়ার্ড সঠিক নয়।"
-            : error.message || "সাইন ইন করা যায়নি। আবার চেষ্টা করুন।"
+            : error.message || "সাইন ইন করা যায়নি। আবার চেষ্টা করুন।",
         );
         return;
       }
@@ -65,14 +65,29 @@ export default function SignInPage() {
       setPending(false);
     }
   }
+  useEffect(() => {
+    const url = new URL(window.location.href);
 
+    if (url.searchParams.get("reason") !== "auth-required") return;
+
+    url.searchParams.delete("reason");
+
+    window.history.replaceState(
+      window.history.state,
+      "",
+      `${url.pathname}${url.search}${url.hash}`,
+    );
+
+    toast("এই পৃষ্ঠাটি দেখতে সাইন ইন করুন।", {
+      id: "auth-required",
+      icon: "🔒",
+    });
+  }, []);
   return (
     <section className="px-4 py-10 sm:py-12">
       <div className="mx-auto w-full max-w-100">
         <div className="mb-6 text-center">
-          <h1 className="text-2xl font-bold text-[#202a23]">
-            সাইন ইন করুন
-          </h1>
+          <h1 className="text-2xl font-bold text-[#202a23]">সাইন ইন করুন</h1>
 
           <p className="mt-2 text-sm text-gray-500">
             আপনার অ্যাকাউন্টে প্রবেশ করে বিস্তারিত বাজারদর দেখুন।
@@ -164,20 +179,20 @@ export default function SignInPage() {
             >
               {pending ? "সাইন ইন হচ্ছে..." : "সাইন ইন করুন"}
             </Button>
-         </form>
+          </form>
 
-<div className="my-5 flex items-center gap-3">
-  <div className="h-px flex-1 bg-gray-200" />
-  <span className="text-xs text-gray-500">অথবা</span>
-  <div className="h-px flex-1 bg-gray-200" />
-</div>
+          <div className="my-5 flex items-center gap-3">
+            <div className="h-px flex-1 bg-gray-200" />
+            <span className="text-xs text-gray-500">অথবা</span>
+            <div className="h-px flex-1 bg-gray-200" />
+          </div>
 
-<div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-<GoogleSignInButton />
-<GitHubSignInButton/>
-</div>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <GoogleSignInButton />
+            <GitHubSignInButton />
+          </div>
 
-<p className="mt-4 text-center text-xs text-gray-700">
+          <p className="mt-4 text-center text-xs text-gray-700">
             অ্যাকাউন্ট নেই?{" "}
             <Link href="/sign-up" className="text-green-700 hover:underline">
               সাইন আপ করুন
@@ -186,10 +201,7 @@ export default function SignInPage() {
         </div>
 
         <div className="mt-6 text-center">
-          <Link
-            href="/"
-            className="text-sm text-gray-500 hover:text-green-700"
-          >
+          <Link href="/" className="text-sm text-gray-500 hover:text-green-700">
             ← হোম পেজে ফিরে যান
           </Link>
         </div>

@@ -5,11 +5,11 @@ import PriceRisers from "@/components/PriceRisers/PriceRisers";
 
 export default function Home() {
   return (
-   <div>
-      <Hero/>
-      <PriceRisers/>
-      <PriceFallers/>
-      <AllProducts/>
-   </div>
+    <div>
+      <Hero />
+      <PriceRisers />
+      <PriceFallers />
+      <AllProducts />
+    </div>
   );
 }

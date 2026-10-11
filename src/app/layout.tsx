@@ -19,17 +19,16 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en" data-theme="light"
+      lang="en"
+      data-theme="light"
       className={`${hindSiliguri.className} h-full antialiased`}
     >
       <body className="min-h-screen flex flex-col bg-[#f0f6f1]">
-          <ToastProvider/>
-          <Navbar/>
-        <main className="w-full max-w-7xl mx-auto">
-        {children}
-        </main>
-          <Footer/>
-        </body>
+        <ToastProvider />
+        <Navbar />
+        <main className="w-full max-w-7xl mx-auto">{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }

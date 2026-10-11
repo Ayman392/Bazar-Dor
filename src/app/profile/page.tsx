@@ -11,8 +11,7 @@ import { authClient } from "@/lib/auth-client";
 export default function ProfilePage() {
   const router = useRouter();
 
-  const { data: session, isPending, error, refetch } =
-    authClient.useSession();
+  const { data: session, isPending, error, refetch } = authClient.useSession();
 
   const [signingOut, setSigningOut] = useState(false);
   const [linking, setLinking] = useState(false);
@@ -35,7 +34,7 @@ export default function ProfilePage() {
     window.history.replaceState(
       window.history.state,
       "",
-      `${url.pathname}${url.search}${url.hash}`
+      `${url.pathname}${url.search}${url.hash}`,
     );
 
     toast.success("GitHub সফলভাবে সংযুক্ত হয়েছে।", {
@@ -132,9 +131,7 @@ export default function ProfilePage() {
     <section className="px-4 py-12 sm:py-20">
       <div className="mx-auto w-full max-w-2xl">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-[#202a23]">
-            আমার প্রোফাইল
-          </h1>
+          <h1 className="text-2xl font-bold text-[#202a23]">আমার প্রোফাইল</h1>
 
           <p className="mt-1 text-sm text-gray-500">
             আপনার অ্যাকাউন্টের তথ্য এখানে দেখুন।
@@ -177,10 +174,7 @@ export default function ProfilePage() {
               isDisabled={busy}
               className="rounded-lg border border-red-400 px-4 text-sm text-red-600 hover:bg-red-50"
             >
-              <ArrowRightFromSquare
-                aria-hidden="true"
-                className="size-4"
-              />
+              <ArrowRightFromSquare aria-hidden="true" className="size-4" />
               {signingOut ? "সাইন আউট হচ্ছে..." : "সাইন আউট"}
             </Button>
 
@@ -192,15 +186,15 @@ export default function ProfilePage() {
               isDisabled={busy}
               className="rounded-lg text-sm"
             >
-              {linking ? "GitHub-এ নিয়ে যাওয়া হচ্ছে..." : "GitHub সংযুক্ত করুন"}
+              {linking
+                ? "GitHub-এ নিয়ে যাওয়া হচ্ছে..."
+                : "GitHub সংযুক্ত করুন"}
             </Button>
           </div>
         </div>
 
         <div className="mt-5 rounded-2xl border border-[#dfe7e1] bg-[#f9fcfa] p-6">
-          <h2 className="mb-4 font-semibold text-[#202a23]">
-            তথ্য
-          </h2>
+          <h2 className="mb-4 font-semibold text-[#202a23]">তথ্য</h2>
 
           <Link
             href="/profile/edit"

@@ -11,35 +11,35 @@ export default function PriceFallers() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-useEffect(() => {
-  let active = true;
+  useEffect(() => {
+    let active = true;
 
-  async function loadProducts() {
-    try {
-      const data = await getProducts();
+    async function loadProducts() {
+      try {
+        const data = await getProducts();
 
-      const topFallers = data
-        .filter((product) => product.change.dir === "down")
-        .sort((a, b) => a.change.pct - b.change.pct)
-        .slice(0, 6);
+        const topFallers = data
+          .filter((product) => product.change.dir === "down")
+          .sort((a, b) => a.change.pct - b.change.pct)
+          .slice(0, 6);
 
-      if (active) {
-        setProducts(topFallers);
-        setError(false);
+        if (active) {
+          setProducts(topFallers);
+          setError(false);
+        }
+      } catch {
+        if (active) setError(true);
+      } finally {
+        if (active) setLoading(false);
       }
-    } catch {
-      if (active) setError(true);
-    } finally {
-      if (active) setLoading(false);
     }
-  }
 
-  loadProducts();
+    loadProducts();
 
-  return () => {
-    active = false;
-  };
-}, []);
+    return () => {
+      active = false;
+    };
+  }, []);
 
   return (
     <section
@@ -88,9 +88,7 @@ useEffect(() => {
           পণ্যের দাম লোড করা যায়নি। আবার চেষ্টা করতে পেজ রিফ্রেশ করুন।
         </p>
       ) : products.length === 0 ? (
-        <p className="text-sm text-gray-500">
-          আজ কোনো পণ্যের দাম বাড়েনি।
-        </p>
+        <p className="text-sm text-gray-500">আজ কোনো পণ্যের দাম বাড়েনি।</p>
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((product) => (

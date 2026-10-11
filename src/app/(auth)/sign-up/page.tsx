@@ -138,93 +138,98 @@ export default function SignUpPage() {
               />
             </div>
 
-<div className="flex flex-col gap-1.5">
-  <Label htmlFor="password" className="text-sm text-[#202a23]">
-    পাসওয়ার্ড
-  </Label>
+            <div className="flex flex-col gap-1.5">
+              <Label htmlFor="password" className="text-sm text-[#202a23]">
+                পাসওয়ার্ড
+              </Label>
 
-  <InputGroup className={inputGroupClass}>
-    <InputGroup.Input
-      id="password"
-      name="password"
-      type={showPassword ? "text" : "password"}
-      autoComplete="new-password"
-      placeholder="কমপক্ষে ৮ অক্ষর"
-      value={password}
-      onChange={(event) => setPassword(event.target.value)}
-      minLength={8}
-      maxLength={128}
-      required
-      disabled={pending}
-      className="min-w-0 text-sm"
-    />
+              <InputGroup className={inputGroupClass}>
+                <InputGroup.Input
+                  id="password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  autoComplete="new-password"
+                  placeholder="কমপক্ষে ৮ অক্ষর"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  minLength={8}
+                  maxLength={128}
+                  required
+                  disabled={pending}
+                  className="min-w-0 text-sm"
+                />
 
-    <InputGroup.Suffix className="pe-0">
-      <Button
-        type="button"
-        isIconOnly
-        aria-label={showPassword ? "পাসওয়ার্ড লুকান" : "পাসওয়ার্ড দেখান"}
-        aria-controls="password"
-        size="sm"
-        variant="ghost"
-        isDisabled={pending}
-        onPress={() => setShowPassword((value) => !value)}
-      >
-        {showPassword ? (
-          <Eye aria-hidden="true" className="size-4" />
-        ) : (
-          <EyeSlash aria-hidden="true" className="size-4" />
-        )}
-      </Button>
-    </InputGroup.Suffix>
-  </InputGroup>
-</div>
+                <InputGroup.Suffix className="pe-0">
+                  <Button
+                    type="button"
+                    isIconOnly
+                    aria-label={
+                      showPassword ? "পাসওয়ার্ড লুকান" : "পাসওয়ার্ড দেখান"
+                    }
+                    aria-controls="password"
+                    size="sm"
+                    variant="ghost"
+                    isDisabled={pending}
+                    onPress={() => setShowPassword((value) => !value)}
+                  >
+                    {showPassword ? (
+                      <Eye aria-hidden="true" className="size-4" />
+                    ) : (
+                      <EyeSlash aria-hidden="true" className="size-4" />
+                    )}
+                  </Button>
+                </InputGroup.Suffix>
+              </InputGroup>
+            </div>
 
-<div className="flex flex-col gap-1.5">
-  <Label htmlFor="confirm-password" className="text-sm text-[#202a23]">
-    পাসওয়ার্ড নিশ্চিত করুন
-  </Label>
+            <div className="flex flex-col gap-1.5">
+              <Label
+                htmlFor="confirm-password"
+                className="text-sm text-[#202a23]"
+              >
+                পাসওয়ার্ড নিশ্চিত করুন
+              </Label>
 
-  <InputGroup className={inputGroupClass}>
-    <InputGroup.Input
-      id="confirm-password"
-      name="confirmPassword"
-      type={showConfirmPassword ? "text" : "password"}
-      autoComplete="new-password"
-      placeholder="আবার লিখুন"
-      value={confirmPassword}
-      onChange={(event) => setConfirmPassword(event.target.value)}
-      minLength={8}
-      maxLength={128}
-      required
-      disabled={pending}
-      className="min-w-0 text-sm"
-    />
+              <InputGroup className={inputGroupClass}>
+                <InputGroup.Input
+                  id="confirm-password"
+                  name="confirmPassword"
+                  type={showConfirmPassword ? "text" : "password"}
+                  autoComplete="new-password"
+                  placeholder="আবার লিখুন"
+                  value={confirmPassword}
+                  onChange={(event) => setConfirmPassword(event.target.value)}
+                  minLength={8}
+                  maxLength={128}
+                  required
+                  disabled={pending}
+                  className="min-w-0 text-sm"
+                />
 
-    <InputGroup.Suffix className="pe-0">
-      <Button
-        type="button"
-        isIconOnly
-        aria-label={
-          showConfirmPassword
-            ? "নিশ্চিতকরণ পাসওয়ার্ড লুকান"
-            : "নিশ্চিতকরণ পাসওয়ার্ড দেখান"
-        }
-        aria-controls="confirm-password"
-        size="sm"
-        variant="ghost"
-        isDisabled={pending}
-        onPress={() => setShowConfirmPassword((value) => !value)}
-      >
-        {showConfirmPassword ? (
-          <Eye aria-hidden="true" className="size-4" />
-        ) : (
-          <EyeSlash aria-hidden="true" className="size-4" />
-        )}
-      </Button>
-    </InputGroup.Suffix>
-  </InputGroup>
-</div>
+                <InputGroup.Suffix className="pe-0">
+                  <Button
+                    type="button"
+                    isIconOnly
+                    aria-label={
+                      showConfirmPassword
+                        ? "নিশ্চিতকরণ পাসওয়ার্ড লুকান"
+                        : "নিশ্চিতকরণ পাসওয়ার্ড দেখান"
+                    }
+                    aria-controls="confirm-password"
+                    size="sm"
+                    variant="ghost"
+                    isDisabled={pending}
+                    onPress={() => setShowConfirmPassword((value) => !value)}
+                  >
+                    {showConfirmPassword ? (
+                      <Eye aria-hidden="true" className="size-4" />
+                    ) : (
+                      <EyeSlash aria-hidden="true" className="size-4" />
+                    )}
+                  </Button>
+                </InputGroup.Suffix>
+              </InputGroup>
+            </div>
 
             {errorMessage && (
               <p role="alert" className="text-sm text-red-600">
@@ -242,20 +247,20 @@ export default function SignUpPage() {
             >
               {pending ? "অ্যাকাউন্ট তৈরি হচ্ছে..." : "অ্যাকাউন্ট তৈরি করুন"}
             </Button>
-         </form>
+          </form>
 
-<div className="my-5 flex items-center gap-3">
-  <div className="h-px flex-1 bg-gray-200" />
-  <span className="text-xs text-gray-500">অথবা</span>
-  <div className="h-px flex-1 bg-gray-200" />
-</div>
+          <div className="my-5 flex items-center gap-3">
+            <div className="h-px flex-1 bg-gray-200" />
+            <span className="text-xs text-gray-500">অথবা</span>
+            <div className="h-px flex-1 bg-gray-200" />
+          </div>
 
-<div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-<GoogleSignInButton />
-<GitHubSignInButton/>
-</div>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <GoogleSignInButton />
+            <GitHubSignInButton />
+          </div>
 
-<p className="mt-4 text-center text-xs text-gray-700">
+          <p className="mt-4 text-center text-xs text-gray-700">
             অ্যাকাউন্ট আছে?{" "}
             <Link href="/sign-in" className="text-green-700 hover:underline">
               সাইন ইন করুন
@@ -264,10 +269,7 @@ export default function SignUpPage() {
         </div>
 
         <div className="mt-6 text-center">
-          <Link
-            href="/"
-            className="text-sm text-gray-500 hover:text-green-700"
-          >
+          <Link href="/" className="text-sm text-gray-500 hover:text-green-700">
             ← হোম পেজে ফিরে যান
           </Link>
         </div>

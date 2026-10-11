@@ -11,30 +11,30 @@ export default function AllProducts() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-        useEffect(() => {
-        let active = true;
+  useEffect(() => {
+    let active = true;
 
-        async function loadProducts() {
-            try {
-            const data = await getProducts();
+    async function loadProducts() {
+      try {
+        const data = await getProducts();
 
-            if (active) {
-                setProducts(data);
-                setError(false);
-            }
-            } catch {
-            if (active) setError(true);
-            } finally {
-            if (active) setLoading(false);
-            }
+        if (active) {
+          setProducts(data);
+          setError(false);
         }
+      } catch {
+        if (active) setError(true);
+      } finally {
+        if (active) setLoading(false);
+      }
+    }
 
-        loadProducts();
+    loadProducts();
 
-        return () => {
-            active = false;
-        };
-        }, []);
+    return () => {
+      active = false;
+    };
+  }, []);
 
   return (
     <section
@@ -42,10 +42,7 @@ export default function AllProducts() {
       aria-labelledby="all-products-title"
       className="scroll-mt-6 px-4 pt-8 pb-12 sm:px-6"
     >
-      <h2
-        id="all-products-title"
-        className="text-xl font-bold text-gray-900"
-      >
+      <h2 id="all-products-title" className="text-xl font-bold text-gray-900">
         সব পণ্য
       </h2>
 
@@ -85,9 +82,7 @@ export default function AllProducts() {
           পণ্যের দাম লোড করা যায়নি। আবার চেষ্টা করতে পেজ রিফ্রেশ করুন।
         </p>
       ) : products.length === 0 ? (
-        <p className="text-sm text-gray-500">
-          কোনো পণ্য পাওয়া যায়নি।
-        </p>
+        <p className="text-sm text-gray-500">কোনো পণ্য পাওয়া যায়নি।</p>
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
           {products.map((product) => (

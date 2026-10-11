@@ -87,7 +87,7 @@ function ProductDetails({ slug }: { slug: string }) {
       try {
         const response = await fetch(
           "https://api.abcz.workers.dev/api/bazardor/products",
-          { signal: controller.signal }
+          { signal: controller.signal },
         );
 
         if (!response.ok) {
@@ -165,7 +165,7 @@ function ProductDetails({ slug }: { slug: string }) {
   const average = markets.length
     ? markets.reduce(
         (total, market) => total + (market.min + market.max) / 2,
-        0
+        0,
       ) / markets.length
     : null;
 
@@ -281,9 +281,7 @@ function ProductDetails({ slug }: { slug: string }) {
             {formatNumber(product.today)}
           </p>
 
-          <p className="mt-1 text-xs text-gray-500">
-            টাকা / {unit}
-          </p>
+          <p className="mt-1 text-xs text-gray-500">টাকা / {unit}</p>
 
           {product.change && (
             <p className={`mt-2 text-xs font-semibold ${changeColor}`}>
@@ -315,9 +313,7 @@ function ProductDetails({ slug }: { slug: string }) {
                 {formatPrice(item.value)}
               </p>
 
-              <p className="mt-1 text-xs text-gray-500">
-                {item.description}
-              </p>
+              <p className="mt-1 text-xs text-gray-500">{item.description}</p>
             </div>
           ))}
         </div>
@@ -350,22 +346,13 @@ function ProductDetails({ slug }: { slug: string }) {
                   <th scope="col" className="px-4 py-3 font-medium">
                     বিভাগ
                   </th>
-                  <th
-                    scope="col"
-                    className="px-4 py-3 text-right font-medium"
-                  >
+                  <th scope="col" className="px-4 py-3 text-right font-medium">
                     সর্বনিম্ন
                   </th>
-                  <th
-                    scope="col"
-                    className="px-4 py-3 text-right font-medium"
-                  >
+                  <th scope="col" className="px-4 py-3 text-right font-medium">
                     সর্বোচ্চ
                   </th>
-                  <th
-                    scope="col"
-                    className="px-4 py-3 text-right font-medium"
-                  >
+                  <th scope="col" className="px-4 py-3 text-right font-medium">
                     গড়
                   </th>
                 </tr>
@@ -407,8 +394,8 @@ function ProductDetails({ slug }: { slug: string }) {
         )}
 
         <p className="mt-3 text-xs leading-relaxed text-gray-500">
-          প্রতিটি বাজারের গড় সর্বনিম্ন ও সর্বোচ্চ দামের মধ্যমান।
-          সারসংক্ষেপের গড় এই মধ্যমানগুলোর গড় থেকে হিসাব করা হয়েছে।
+          প্রতিটি বাজারের গড় সর্বনিম্ন ও সর্বোচ্চ দামের মধ্যমান। সারসংক্ষেপের
+          গড় এই মধ্যমানগুলোর গড় থেকে হিসাব করা হয়েছে।
         </p>
       </div>
     </section>

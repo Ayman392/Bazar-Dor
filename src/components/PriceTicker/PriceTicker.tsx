@@ -29,36 +29,33 @@ export default function PriceTicker() {
   const [error, setError] = useState(false);
   const [paused, setPaused] = useState(false);
 
-useEffect(() => {
-  let active = true;
+  useEffect(() => {
+    let active = true;
 
-  async function loadProducts() {
-    try {
-      const data = await getProducts();
+    async function loadProducts() {
+      try {
+        const data = await getProducts();
 
-      if (active) {
-        setProducts(data);
-        setError(false);
+        if (active) {
+          setProducts(data);
+          setError(false);
+        }
+      } catch {
+        if (active) setError(true);
+      } finally {
+        if (active) setLoading(false);
       }
-    } catch {
-      if (active) setError(true);
-    } finally {
-      if (active) setLoading(false);
     }
-  }
 
-  loadProducts();
+    loadProducts();
 
-  return () => {
-    active = false;
-  };
-}, []);
+    return () => {
+      active = false;
+    };
+  }, []);
 
   return (
-    <section
-      aria-label="আজকের বাজারদর"
-      className="border-b border-gray-100"
-    >
+    <section aria-label="আজকের বাজারদর" className="border-b border-gray-100">
       {loading ? (
         <p role="status" className="px-6 py-3 text-sm text-gray-500">
           বাজারদর লোড হচ্ছে...
@@ -115,13 +112,10 @@ useEffect(() => {
                           : product.change.dir === "down"
                             ? "▼"
                             : "—"}{" "}
-                        {Math.abs(product.change.pct).toLocaleString(
-                          "bn-BD",
-                          {
-                            minimumFractionDigits: 1,
-                            maximumFractionDigits: 1,
-                          }
-                        )}
+                        {Math.abs(product.change.pct).toLocaleString("bn-BD", {
+                          minimumFractionDigits: 1,
+                          maximumFractionDigits: 1,
+                        })}
                         %
                       </span>
                     </li>

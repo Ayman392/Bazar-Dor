@@ -3,13 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import {
-  Avatar,
-  Button,
-  Dropdown,
-  Label,
-  buttonVariants,
-} from "@heroui/react";
+import { Avatar, Button, Dropdown, Label, buttonVariants } from "@heroui/react";
 import { Person, ArrowRightFromSquare } from "@gravity-ui/icons";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
@@ -17,8 +11,7 @@ import { authClient } from "@/lib/auth-client";
 export default function NavbarAuth() {
   const router = useRouter();
 
-  const { data: session, isPending, error, refetch } =
-    authClient.useSession();
+  const { data: session, isPending, error, refetch } = authClient.useSession();
 
   const [signingOut, setSigningOut] = useState(false);
 
@@ -101,45 +94,45 @@ export default function NavbarAuth() {
 
   return (
     <Dropdown>
-<Dropdown.Trigger
-  type="button"
-  isDisabled={signingOut}
-  aria-label={`${user.name} — অ্যাকাউন্ট মেনু`}
-  className="inline-flex items-center gap-2 rounded-lg px-2 py-1.5 text-gray-800 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-green-700 disabled:opacity-50"
->
-  <Avatar size="sm" className="rounded-lg">
-    {user.image && (
-      <Avatar.Image
-        src={user.image}
-        alt=""
-        className="rounded-lg object-cover"
-      />
-    )}
+      <Dropdown.Trigger
+        type="button"
+        isDisabled={signingOut}
+        aria-label={`${user.name} — অ্যাকাউন্ট মেনু`}
+        className="inline-flex items-center gap-2 rounded-lg px-2 py-1.5 text-gray-800 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-green-700 disabled:opacity-50"
+      >
+        <Avatar size="sm" className="rounded-lg">
+          {user.image && (
+            <Avatar.Image
+              src={user.image}
+              alt=""
+              className="rounded-lg object-cover"
+            />
+          )}
 
-    <Avatar.Fallback className="rounded-lg bg-green-50 text-sm font-semibold text-green-800">
-      {initial}
-    </Avatar.Fallback>
-  </Avatar>
+          <Avatar.Fallback className="rounded-lg bg-green-50 text-sm font-semibold text-green-800">
+            {initial}
+          </Avatar.Fallback>
+        </Avatar>
 
-  <span className="max-w-28 truncate text-sm font-medium">
-    {signingOut ? "সাইন আউট হচ্ছে..." : firstName}
-  </span>
+        <span className="max-w-28 truncate text-sm font-medium">
+          {signingOut ? "সাইন আউট হচ্ছে..." : firstName}
+        </span>
 
-  <svg
-    aria-hidden="true"
-    viewBox="0 0 16 16"
-    fill="none"
-    className="size-3 text-gray-500"
-  >
-    <path
-      d="m5 6.5 3 3 3-3"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-</Dropdown.Trigger>
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 16 16"
+          fill="none"
+          className="size-3 text-gray-500"
+        >
+          <path
+            d="m5 6.5 3 3 3-3"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </Dropdown.Trigger>
 
       <Dropdown.Popover
         placement="bottom end"
@@ -150,15 +143,10 @@ export default function NavbarAuth() {
             {user.name}
           </p>
 
-          <p className="mt-0.5 break-all text-xs text-gray-500">
-            {user.email}
-          </p>
+          <p className="mt-0.5 break-all text-xs text-gray-500">{user.email}</p>
         </div>
 
-        <Dropdown.Menu
-          aria-label="অ্যাকাউন্ট মেনু"
-          className="gap-1"
-        >
+        <Dropdown.Menu aria-label="অ্যাকাউন্ট মেনু" className="gap-1">
           <Dropdown.Item
             id="profile"
             textValue="আমার প্রোফাইল"

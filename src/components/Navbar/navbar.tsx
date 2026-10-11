@@ -29,12 +29,7 @@ export default function Navbar() {
     <header className="w-full bg-white">
       <nav className="mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6">
         <Link href="/" className="flex items-center">
-          <Image
-            src={logo}
-            width={70}
-            height={70}
-            alt="Bazar dor logo"
-          />
+          <Image src={logo} width={70} height={70} alt="Bazar dor logo" />
 
           <div className="font-bold">
             <h1 className="text-2xl">বাজার দর</h1>

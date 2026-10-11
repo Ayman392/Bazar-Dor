@@ -9,8 +9,7 @@ import { authClient } from "@/lib/auth-client";
 
 export default function EditProfilePage() {
   const router = useRouter();
-  const { data: session, isPending, error, refetch } =
-    authClient.useSession();
+  const { data: session, isPending, error, refetch } = authClient.useSession();
 
   const [nameInput, setNameInput] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
