@@ -29,9 +29,9 @@ async function ProtectedProductPage() {
     headers: requestHeaders,
   });
 
-  if (!session) {
-    redirect("/sign-in");
-  }
+if (!session) {
+  redirect("/sign-in?reason=auth-required");
+}
 
   return <ProductPageClient />;
 }
