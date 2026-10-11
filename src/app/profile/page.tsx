@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Avatar, Button, Input, Label } from "@heroui/react";
+import { Avatar, Button } from "@heroui/react";
 import { ArrowRightFromSquare } from "@gravity-ui/icons";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
@@ -13,78 +14,37 @@ export default function ProfilePage() {
   const { data: session, isPending, error, refetch } =
     authClient.useSession();
 
-  const [nameInput, setNameInput] = useState<string | null>(null);
-  const [updating, setUpdating] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [linking, setLinking] = useState(false);
 
-useEffect(() => {
-  const url = new URL(window.location.href);
-
-  if (url.searchParams.get("linked") !== "github") return;
-
-  url.searchParams.delete("linked");
-
-  window.history.replaceState(
-    window.history.state,
-    "",
-    `${url.pathname}${url.search}${url.hash}`
-  );
-
-  toast.success("GitHub সফলভাবে সংযুক্ত হয়েছে।", {
-    id: "github-linked",
-  });
-}, []);
-
-  async function handleUpdate(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    if (!session || updating || signingOut) return;
-
-    setErrorMessage("");
-
-    const name = (nameInput ?? session.user.name).trim();
-
-    if (!name) {
-      setErrorMessage("আপনার নাম লিখুন।");
-      toast.error("আপনার নাম লিখুন।");
-      return;
+  useEffect(() => {
+    if (!isPending && !error && !session) {
+      router.replace("/sign-in");
     }
+  }, [isPending, error, session, router]);
 
-    if (name === session.user.name) {
-      toast("নাম পরিবর্তন করে আপডেট করুন।");
-      return;
-    }
+  useEffect(() => {
+    if (!session || error) return;
 
-    setUpdating(true);
+    const url = new URL(window.location.href);
 
-    try {
-      const { error } = await authClient.updateUser({ name });
+    if (url.searchParams.get("linked") !== "github") return;
 
-      if (error) {
-        const message = error.message || "নাম আপডেট করা যায়নি।";
-        setErrorMessage(message);
-        toast.error(message);
-        return;
-      }
+    url.searchParams.delete("linked");
 
-      setNameInput(name);
-      toast.success("আপনার নাম আপডেট হয়েছে।");
-      await refetch();
-      router.refresh();
-    } catch {
-      const message =
-        "সার্ভারের সঙ্গে যোগাযোগ করা যায়নি। আবার চেষ্টা করুন।";
+    window.history.replaceState(
+      window.history.state,
+      "",
+      `${url.pathname}${url.search}${url.hash}`
+    );
 
-      setErrorMessage(message);
-      toast.error(message);
-    } finally {
-      setUpdating(false);
-    }
-  }
+    toast.success("GitHub সফলভাবে সংযুক্ত হয়েছে।", {
+      id: "github-linked",
+    });
+  }, [session, error]);
 
   async function handleSignOut() {
-    if (signingOut || updating) return;
+    if (signingOut || linking) return;
 
     setSigningOut(true);
 
@@ -103,6 +63,27 @@ useEffect(() => {
       toast.error("সার্ভারের সঙ্গে যোগাযোগ করা যায়নি।");
     } finally {
       setSigningOut(false);
+    }
+  }
+
+  async function handleLinkGitHub() {
+    if (linking || signingOut) return;
+
+    setLinking(true);
+
+    try {
+      const { error } = await authClient.linkSocial({
+        provider: "github",
+        callbackURL: "/profile?linked=github",
+      });
+
+      if (error) {
+        toast.error(error.message || "GitHub সংযুক্ত করা যায়নি।");
+        setLinking(false);
+      }
+    } catch {
+      toast.error("সার্ভারের সঙ্গে যোগাযোগ করা যায়নি।");
+      setLinking(false);
     }
   }
 
@@ -145,7 +126,7 @@ useEffect(() => {
 
   const user = session.user;
   const initial = user.name.trim().charAt(0).toUpperCase() || "U";
-  const busy = updating || signingOut;
+  const busy = signingOut || linking;
 
   return (
     <section className="px-4 py-12 sm:py-20">
@@ -160,7 +141,7 @@ useEffect(() => {
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-[#dfe7e1] bg-[#f9fcfa] p-5 sm:p-6">
+        <div className="rounded-2xl border border-[#dfe7e1] bg-[#f9fcfa] p-5 sm:p-6">
           <div className="flex min-w-0 items-center gap-4">
             <Avatar className="size-16 shrink-0 rounded-xl">
               {user.image && (
@@ -187,86 +168,46 @@ useEffect(() => {
             </div>
           </div>
 
-          <Button
-            type="button"
-            variant="ghost"
-            onPress={handleSignOut}
-            isPending={signingOut}
-            isDisabled={busy}
-            className="rounded-lg border border-red-400 px-4 text-sm text-red-600 hover:bg-red-50"
-          >
-            <ArrowRightFromSquare aria-hidden="true" className="size-4" />
-            {signingOut ? "সাইন আউট হচ্ছে..." : "সাইন আউট"}
-          </Button>
-          <Button
-  type="button"
-  variant="secondary"
-  onPress={async () => {
-    try {
-      const { error } = await authClient.linkSocial({
-        provider: "github",
-        callbackURL: "/profile?linked=github",
-      });
+          <div className="mt-5 flex flex-wrap gap-3">
+            <Button
+              type="button"
+              variant="ghost"
+              onPress={handleSignOut}
+              isPending={signingOut}
+              isDisabled={busy}
+              className="rounded-lg border border-red-400 px-4 text-sm text-red-600 hover:bg-red-50"
+            >
+              <ArrowRightFromSquare
+                aria-hidden="true"
+                className="size-4"
+              />
+              {signingOut ? "সাইন আউট হচ্ছে..." : "সাইন আউট"}
+            </Button>
 
-      if (error) {
-        toast.error(error.message || "GitHub সংযুক্ত করা যায়নি।");
-      }
-    } catch {
-      toast.error("সার্ভারের সঙ্গে যোগাযোগ করা যায়নি।");
-    }
-  }}
->
-  GitHub সংযুক্ত করুন
-</Button>
+            <Button
+              type="button"
+              variant="secondary"
+              onPress={handleLinkGitHub}
+              isPending={linking}
+              isDisabled={busy}
+              className="rounded-lg text-sm"
+            >
+              {linking ? "GitHub-এ নিয়ে যাওয়া হচ্ছে..." : "GitHub সংযুক্ত করুন"}
+            </Button>
+          </div>
         </div>
 
-        <div className="mt-5 rounded-2xl border border-[#dfe7e1] bg-[#f9fcfa] p-5 sm:p-8">
-          <h2 className="mb-6 text-base font-semibold text-[#202a23]">
+        <div className="mt-5 rounded-2xl border border-[#dfe7e1] bg-[#f9fcfa] p-6">
+          <h2 className="mb-4 font-semibold text-[#202a23]">
             তথ্য
           </h2>
 
-          <form
-            onSubmit={handleUpdate}
-            aria-busy={updating}
-            className="space-y-4"
+          <Link
+            href="/profile/edit"
+            className="inline-flex rounded-lg bg-green-700 px-5 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-green-800"
           >
-            <div className="flex flex-col gap-1.5">
-              <Label htmlFor="profile-name" className="text-sm text-[#202a23]">
-                নাম
-              </Label>
-
-              <Input
-                id="profile-name"
-                name="name"
-                type="text"
-                autoComplete="name"
-                placeholder="আপনার নাম লিখুন"
-                value={nameInput ?? user.name}
-                onChange={(event) => setNameInput(event.target.value)}
-                required
-                disabled={busy}
-                fullWidth
-                className="h-10 rounded-lg border border-[#dfe7e1] bg-transparent px-3 text-sm shadow-none"
-              />
-            </div>
-
-            {errorMessage && (
-              <p role="alert" className="text-sm text-red-600">
-                {errorMessage}
-              </p>
-            )}
-
-            <Button
-              type="submit"
-              variant="primary"
-              fullWidth
-              isPending={updating}
-              isDisabled={busy}
-              className="h-10 rounded-lg bg-[#008c3d] text-sm font-semibold text-white shadow-md hover:bg-green-800"
-            >
-              {updating ? "আপডেট হচ্ছে..." : "আপডেট"}
-            </Button>
-          </form>
+            তথ্য আপডেট করুন
+          </Link>
         </div>
       </div>
     </section>
